@@ -1,30 +1,27 @@
-import React from 'react';
-import Movie from '../Movie/movie'
-import RentedMovie from '../Movie/rented_movie'
+import React ,{useState} from 'react';
+import CatalogBody from './catalog_body'
 import './catalog.css'
 
 
 
 
-function catalog({movies,updateBudget}) {
+function Catalog({movies,updateBudget}) {
+    const [searchValue, setSearchValue] = useState('');
+    function updateSearchValue(event) {
+        setSearchValue(event.target.value)
+    }
+    let searchResult = movies.filter(m => m.title.toLowerCase().includes(searchValue) || m.title.includes(searchValue))
+    
     return (
-
         <div>
             <div>
-                <input className='searchBar' placeholder='search for a movie' type='text'/>
+                <input value={searchValue} onChange={updateSearchValue} className='searchBar' placeholder='search for a movie' type='text'/>
             </div>
-            <h2 className='catalogText' >Movies to watch</h2>
-            <div className="category-list">
-                {movies.filter(m => !m.isRented).map(movie => <Movie movie={movie} updateBudget = {updateBudget}/>)}
-            </div>
-            <br/>
-            <h2 className='catalogText' >Rented movies</h2>
-            <div className="category-list">
-                {movies.filter(m => m.isRented).map(movie => <RentedMovie movie={movie} updateBudget = {updateBudget}/>)}
-            </div>
+            {searchValue == "" ? <CatalogBody movies = {movies} updateBudget = {updateBudget}/> : <CatalogBody movies = {searchResult} updateBudget = {updateBudget}/>}
+            
         </div>
     );
 }   
 
 
-export default catalog  
+export default Catalog  
