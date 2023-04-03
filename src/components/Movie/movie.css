@@ -1,0 +1,12 @@
+.add_button {
+    display: inline-block;
+    position: absolute;
+    padding: 2px;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    border-radius: 200px;
+    font-size: 28px;
+    cursor: pointer; /* add this line */
+    margin: 17px; /* add this line */
+  }
